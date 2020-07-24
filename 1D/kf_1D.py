@@ -45,11 +45,11 @@ class KF:
         H[0, X0] = 1
 
         #init all matricies
-        z = np.array([meas_value])
-        R = np.array([meas_variance])
-        y = z - H.dot(self._x)  # y = z - H x
-        S = H.dot(self._P).dot(H.T) + R  # S = H P Ht + R
-        K = self._P.dot(H.T).dot(np.linalg.inv(S)) # K = P Ht S^-1
+        z = np.array([meas_value]) #mean vector
+        R = np.array([meas_variance]) #mean variance
+        y = z - H.dot(self._x)  # y = z - H x #innovation - difference between measurement & observed
+        S = H.dot(self._P).dot(H.T) + R  # S = H P Ht + R #innovation covariance
+        K = self._P.dot(H.T).dot(np.linalg.inv(S)) # K = P Ht S^-1 # common gain
         
         #Update pos and uncertantity
         new_x = self._x + K.dot(y)  # x = x + K y
